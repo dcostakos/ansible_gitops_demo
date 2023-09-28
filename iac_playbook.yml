@@ -7,6 +7,26 @@
     iac_var1: "iac_var1 from playbook"
     iac_var2: "iac_var2 from playbook"
   tasks:
+    - name: Block to get new variables
+      when: control_file is defined
+      block:
+        - name: Get contents of control_file
+          ansible.builtin.tempfile:
+            state: file
+          register: tmp_varfile
+          notify: Remove varfile
+
+        - name: Write contents of url to file
+          ansible.builtin.copy:
+            dest: "{{ tmp_varfile.path }}"
+            content: "{{ lookup('ansible.builtin.url', control_file) }}"
+            mode: "0600"
+
+        - name: Include vars from file tempfile
+          ansible.builtin.include_vars:
+            file: "{{ tmp_varfile.path }}"
+
+
     - name: Print value of iac_var1
       ansible.builtin.debug:
         var: iac_var1
@@ -14,3 +34,10 @@
     - name: Print the value of iac_var2
       ansible.builtin.debug:
         var: iac_var2
+
+  handlers:
+    - name: Remove varfile
+      ansible.builtin.file:
+        path: "{{ tmp_varfile.path }}"
+        state: absent
+      when: temp_varfile is defined
