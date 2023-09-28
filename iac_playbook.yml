@@ -1,0 +1,16 @@
+---
+- name: Infrastructure-as-Code simple demo
+  hosts: localhost
+  gather_facts: false
+  become: false
+  vars:
+    iac_var1: "iac_var1 from playbook"
+    iac_var2: "iac_var2 from playbook"
+  tasks:
+    - name: Print value of iac_var1
+      ansible.builtin.debug:
+        var: iac_var1
+
+    - name: Print the value of iac_var2
+      ansible.builtin.debug:
+        var: iac_var2
