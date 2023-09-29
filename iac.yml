@@ -1,3 +1,3 @@
 ---
-iac_var1: "iac_var1 from config"
-iac_var2: "iac_var2 from config"
+iac_var1: "iac_var1 from config in production"
+iac_var2: "iac_var2 from config in production"
