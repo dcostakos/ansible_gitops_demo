@@ -16,10 +16,6 @@
           register: tmp_varfile
           notify: Remove varfile
 
-        - name: Print value of tmp_varfile
-          ansible.builtin.debug:
-            var: tmp_varfile
-
         - name: Write contents of url to file
           ansible.builtin.copy:
             dest: "{{ tmp_varfile.path }}"
@@ -48,4 +44,4 @@
       ansible.builtin.file:
         path: "{{ tmp_varfile.path }}"
         state: absent
-      when: temp_varfile is defined
+      when: tmp_varfile is defined
