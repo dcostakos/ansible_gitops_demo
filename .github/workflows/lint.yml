@@ -1,5 +1,5 @@
 # .github/workflows/lint.yml
-name: ansible-lint
+name: Lint and Push
 on:
   push:
     branches: ["main", "production"]
