@@ -13,11 +13,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main # or version tag instead of 'main'
-  
   call_aap:
     name: Call AAP if the push or pull meets criterial
     runs-on: ubunut-latest
-    if: github.ref == 'refs/heads/production' 
+    if: github.ref == 'refs/heads/production'
     steps:
       - uses: actions/checkout@v4
       - name: Load the ansible-cloud action
@@ -30,4 +29,3 @@ jobs:
           job_template: "IAC Job Template"
           validate_certs: false
           extra_vars: "control_file=https://raw.githubusercontent.com/dcostakos/ansible_gitops_demo/production/iac.yml"
-       
