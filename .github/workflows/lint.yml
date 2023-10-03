@@ -22,4 +22,5 @@ jobs:
           ansible-core-version: ${{ matrix.ansible }}
           testing-type: sanity
           pull-request-change-detection: true
+          test-deps: ""
         
