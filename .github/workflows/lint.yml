@@ -13,13 +13,8 @@ jobs:
       - uses: actions/checkout@v4
       - name: Run ansible-lint
         uses: ansible/ansible-lint@main # or version tag instead of 'main'
-  call_aap:
-    name: Call AAP if the push or pull meets criterial
-    runs-on: ubunut-latest
-    if: github.ref == 'refs/heads/production'
-    steps:
-      - uses: actions/checkout@v4
-      - name: Load the ansible-cloud action
+      - name: Call AAP if the push or pull meets criterial
+        if: github.ref == 'refs/heads/production'
         id: controller_job
         uses: ansible-cloud/aap_controller_action@v1.2.8
         with:
