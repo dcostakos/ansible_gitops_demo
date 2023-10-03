@@ -1,26 +1,13 @@
 # .github/workflows/lint.yml
 name: ansible-lint
-on: [push, pull_request]
-
+on:
+  pull_request:
+    branches: ["main", "stable", "production"]
 jobs:
-  sanity:
-    strategy:
-      fail-fast: false
-      matrix:
-        os:
-         - ubuntu-latest
-        ansible:
-         - stable-2.14
-         - stable-2.15
-
-    runs-on: ${{ matrix.os }}
-    name: "Ansible ${{ matrix.ansible }} sanity"
+  build:
+    name: Ansible Lint # Naming the build is important to use it as a status check
+    runs-on: ubuntu-latest
     steps:
-      - name: Perform sanity testing
-        uses: ansible-community/ansible-test-gh-action@release/v1
-        with:
-          ansible-core-version: ${{ matrix.ansible }}
-          testing-type: sanity
-          pull-request-change-detection: true
-          test-deps: ""
-        
+      - uses: actions/checkout@v4
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@main # or version tag instead of 'main'
